@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A simple plugin to use with pytest">
+  <meta name="author" content="Mario Cesar Senoranis Ayala">
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <title>Home - pytest-requests</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Home";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="js/jquery-2.1.1.min.js" defer></script>
+  <script src="js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> pytest-requests</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href=".">Home</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#welcome-to-pytest-requests">Welcome to pytest-requests</a></li>
+    
+
+    <li class="toctree-l2"><a href="#writing-a-requests-test">Writing a requests test</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#assertions">Assertions</a></li>
+        
+            <li><a class="toctree-l3" href="#extra-variables">Extra variables</a></li>
+        
+            <li><a class="toctree-l3" href="#example">Example</a></li>
+        
+            <li><a class="toctree-l3" href="#composing-tests-by-including-files">Composing tests by including files</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">pytest-requests</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Home</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/mariocesar/pytest-requests/edit/master/docs/index.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="welcome-to-pytest-requests">Welcome to pytest-requests</h1>
+<p><code>pytest-requests</code> will collect files test_*.yml and execute them as <code>requests</code> calls.</p>
+<h1 id="writing-a-requests-test">Writing a requests test</h1>
+<p>Every test document requires <code>name</code> and <code>stages</code>, <code>variables</code> is optional.</p>
+<pre><code class="yaml">name: string
+variables [Optional]: dict
+
+stages:
+  - list of requests
+</code></pre>
+
+<p>Stages are a list of the requests calls that will be apply and have a short and a long form.</p>
+<pre><code class="yaml">stages:
+  - name [Optional]: string
+    request: string
+    assert: list
+      - string
+    register [Optional]: dict
+</code></pre>
+
+<p>The request short form will be converted to:</p>
+<pre><code class="yaml">request:
+    url: string
+    method: GET
+</code></pre>
+
+<p>The full list of options of the requests are the same for the python-requests library, for example.</p>
+<pre><code class="yaml">request:
+    url: string
+    method: post
+    headers: dict
+        key: string
+    cookies: dict
+        key: string
+    data: dict
+</code></pre>
+
+<h2 id="assertions">Assertions</h2>
+<p>Asserts are a list of expressions that will be tested after the response is done, and are expression in python code</p>
+<pre><code class="yaml">assert:
+  - &quot;True is True&quot;
+  - &quot;1 in [1, 2, 3, 4]&quot;
+</code></pre>
+
+<p>When a response is done it adds the <code>response</code> variable to the context so you can do.</p>
+<pre><code class="yaml">assert:
+  - &quot;response.status_code == 200&quot;
+  - &quot;response.json()['count'] == 3&quot; 
+</code></pre>
+
+<h2 id="extra-variables">Extra variables</h2>
+<p>After a response and assertions are passed you can register values in the context by using the <code>register</code> option</p>
+<pre><code class="yaml">register:
+   token: &quot;response.json()['access_token']&quot;
+   csrf_token: &quot;response.cookies['csrf']&quot;
+</code></pre>
+
+<p>You can also load variables by the console, using the form <code>key=value</code></p>
+<pre><code class="bash">pytest --requests-extra-vars=token=FOO
+</code></pre>
+
+<p>that will be the same as doing in the yaml file</p>
+<pre><code class="yaml">register:
+    token: FOO
+</code></pre>
+
+<p>If you have complex nested values, you can refer to a file by prepending <code>@</code></p>
+<pre><code class="bash">pytest --requests-extra-vars=@variables/foo.yml
+</code></pre>
+
+<p>Where <code>foo.yml</code> contains</p>
+<pre><code class="yaml">var: hello
+var2: 
+    var3:
+    var4: 
+      - Hello
+      - World
+</code></pre>
+
+<p>NOTE, that the prescendence is:</p>
+<pre><code>- Variables in `register`
+- Variables in extra-vars
+</code></pre>
+<h2 id="example">Example</h2>
+<p>Here is a complete example of Login by requesting an access token</p>
+<pre><code class="yaml">.authorize_headers: &amp;authorize_headers
+  headers:
+    Authorization: &quot;Bearer {access_token}&quot;
+
+name: Test login
+
+stages:
+  - name: Authenticate user
+    request:
+      url: &quot;https://login.company.com/auth/token&quot;
+      method: POST
+      data:
+        username: fred
+        password: 123secret
+        grant_type: password
+      headers:
+        Authorization: Basic c2VjcmV0IHNlY3JldCBzZWNyZXQgc2VjcmV0IHNlY3JldCBzZWNyZXQgc2VjcmV0=
+    assert:
+      - response.status_code == 200
+
+    register:
+      access_token: response.json()['access_token']
+
+  - name: List opportunities
+    request:
+      url: &quot;https://api.company.com/opportunities&quot;
+      &lt;&lt;: *authorize_headers
+    assert:
+      - response.status_code == 200
+
+  - name: List users
+    request:
+      url: &quot;https://api.company.com/user/profile&quot;
+      &lt;&lt;: *authorize_headers
+    assert:
+      - &quot;response.status_code == 200&quot;
+      - &quot;'results' in response.json()&quot;
+      - &quot;'count' in response.json()&quot;
+      - &quot;'next' in response.json()&quot;
+      - &quot;'previous' in response.json()&quot;
+</code></pre>
+
+<h2 id="composing-tests-by-including-files">Composing tests by including files</h2>
+<p>You can use the include directive to reuse common requests like authentication requests, or common tests.</p>
+<p>For example this is a file that have the login requests. <code>authenticated_user.yml</code></p>
+<pre><code class="yaml">- name: Authenticate user
+request:
+  url: &quot;https://login.company.com/auth/token&quot;
+  method: POST
+  data:
+    username: shall
+    password: password
+    grant_type: password
+  headers:
+    Authorization: Basic secret=
+assert:
+  - response.status_code == 200
+
+register:
+  access_token: response.json()['access_token']
+</code></pre>
+
+<p>Note that register directives will be loaded in the context of the test where this file is imported.</p>
+<pre><code class="yaml">name: Test login
+
+stages:
+  - include: authenticated_user.yml
+</code></pre>
+
+<p>The include directive mades the file path relative to the test file.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/mariocesar/pytest-requests/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+      
+    </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.0.4
+Build Date UTC : 2019-06-24 20:45:50
+-->
