@@ -11,7 +11,7 @@ def read(fname):
 
 setup(
     name="pytest-requests",
-    version="0.1.0",
+    version="0.2.0",
     author="Mario Cesar Senoranis Ayala",
     author_email="mariocesar@humanzilla.com",
     maintainer="Mario Cesar Senoranis Ayala",
