@@ -14,10 +14,6 @@ pytest-requests
     :target: https://travis-ci.org/mariocesar/pytest-requests
     :alt: See Build Status on Travis CI
 
-.. image:: https://ci.appveyor.com/api/projects/status/github/mariocesar/pytest-requests?branch=master
-    :target: https://ci.appveyor.com/project/mariocesar/pytest-requests/branch/master
-    :alt: See Build Status on AppVeyor
-
 A simple plugin to use with pytest
 
 ----
