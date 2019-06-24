@@ -1,0 +1,10 @@
+site_name: pytest-requests
+site_description: A simple plugin to use with pytest
+site_author: Mario Cesar Senoranis Ayala
+
+theme: readthedocs
+
+repo_url: https://github.com/mariocesar/pytest-requests
+
+pages:
+- Home: index.md
