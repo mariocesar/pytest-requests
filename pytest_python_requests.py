@@ -46,7 +46,7 @@ def transform_default_baseurl(value: str, context):
 
 Optional = partial(t.Key, optional=True)
 String = t.String(allow_blank=True) >> transform_string_replace
-SimpleType = String | t.StrBool | t.Bool | t.Float | t.Int | t.Null
+SimpleType = String | t.ToBool | t.Bool | t.Float | t.Int | t.Null
 DataType = t.Mapping(
     t.String,
     SimpleType
