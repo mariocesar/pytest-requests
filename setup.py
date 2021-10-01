@@ -11,7 +11,7 @@ def read(fname):
 
 setup(
     name="pytest-requests",
-    version="0.3.0",
+    version="0.4.0",
     author="Mario Cesar Senoranis Ayala",
     author_email="mariocesar@humanzilla.com",
     maintainer="Mario Cesar Senoranis Ayala",
@@ -22,7 +22,7 @@ setup(
     long_description=read("README.rst"),
     py_modules=["pytest_python_requests"],
     python_requires=">=3.6",
-    install_requires=["pytest>=3.5.0", "pyyaml", "pydash", "trafaret", "requests"],
+    install_requires=["pytest>=3.5.0", "pyyaml", "pydash", "trafaret>=2.0.0", "requests"],
     classifiers=[
         "Development Status :: 4 - Beta",
         "Framework :: Pytest",
